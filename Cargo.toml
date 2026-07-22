@@ -12,7 +12,8 @@ publish = false
 tauri-build = { version = "2", features = [] }
 
 [dependencies]
-to_markdown_mcp = "0.1"
+# Use local path during development; use "0.1" for published releases
+to_markdown_mcp = { path = "../toMarkdownMCP" }
 tauri = { version = "2", features = [] }
 tauri-plugin-dialog = "2"
 tauri-plugin-window-state = "2"
@@ -49,5 +50,5 @@ objc2-foundation = "0.3"
 [dev-dependencies]
 tempfile = "3.8"
 
-[lints]
-workspace = true
+[lints.clippy]
+uninlined_format_args = "allow"

@@ -1,0 +1,14 @@
+{
+  "name": "tomarkdown-viewer",
+  "version": "0.5.1",
+  "description": "Desktop Markdown vault viewer for toMarkdownMCP",
+  "type": "module",
+  "scripts": {
+    "dev": "tauri dev",
+    "build": "tauri build",
+    "tauri": "tauri"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.0.0"
+  }
+}
