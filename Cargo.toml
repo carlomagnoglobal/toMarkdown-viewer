@@ -6,14 +6,12 @@ rust-version = "1.88"
 description = "Desktop Markdown/vault viewer for toMarkdownMCP (Tauri)"
 license = "MIT"
 repository = "https://github.com/carlomagnoglobal/toMarkdown-viewer"
-publish = false
 
 [build-dependencies]
 tauri-build = { version = "2", features = [] }
 
 [dependencies]
-# Use local path during development; use "0.1" for published releases
-to_markdown_mcp = { path = "../toMarkdownMCP" }
+to_markdown_mcp = "0.2"
 tauri = { version = "2", features = [] }
 tauri-plugin-dialog = "2"
 tauri-plugin-window-state = "2"
