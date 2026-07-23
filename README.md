@@ -1,5 +1,9 @@
 # toMarkdown-viewer
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Rust](https://img.shields.io/badge/Rust-1.88+-ce422b?logo=rust)](https://www.rust-lang.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-18+-339933?logo=node.js)](https://nodejs.org/)
+
 Desktop Markdown vault viewer for [toMarkdownMCP](https://github.com/carlomagnoglobal/toMarkdownMCP).
 
 A cross-platform Tauri application that provides a beautiful, feature-rich viewer for exploring Markdown vaults with advanced features including:
