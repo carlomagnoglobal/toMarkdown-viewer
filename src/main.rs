@@ -727,6 +727,31 @@ fn ext_for_content_type(content_type: Option<&str>) -> Option<&'static str> {
     }
 }
 
+async fn fetch_url_bytes(url: &str) -> Result<(Vec<u8>, Option<String>, Option<String>), String> {
+    let resp = reqwest::Client::new()
+        .get(url)
+        .send()
+        .await
+        .map_err(|e| e.to_string())?;
+
+    let content_type = resp.headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .map(|s| s.to_string());
+
+    let server_name = resp.headers()
+        .get("content-disposition")
+        .and_then(|v| v.to_str().ok())
+        .and_then(|s| {
+            s.split("filename=")
+                .nth(1)
+                .map(|f| f.trim_matches(|c| c == '"' || c == '\'' || c == ';').to_string())
+        });
+
+    let bytes = resp.bytes().await.map_err(|e| e.to_string())?;
+    Ok((bytes.to_vec(), content_type, server_name))
+}
+
 fn url_attachment_name(url: &str, content_type: Option<&str>, server_name: Option<&str>) -> String {
     // Content-Disposition filename is the authoritative original name.
     if let Some(n) = server_name {
@@ -755,8 +780,7 @@ fn url_attachment_name(url: &str, content_type: Option<&str>, server_name: Optio
 
 #[tauri::command]
 async fn store_url_attachment(root: String, url: String) -> Result<StoredAttachment, String> {
-    let (bytes, ctype, server_name) =
-        to_markdown_mcp::sources::fetch_url_bytes(&url).await.map_err(|e| e.to_string())?;
+    let (bytes, ctype, server_name) = fetch_url_bytes(&url).await?;
     let name0 = url_attachment_name(&url, ctype.as_deref(), server_name.as_deref());
     let rootp = Path::new(&root);
     let dir = attachment_dir(rootp)?;
