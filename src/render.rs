@@ -831,7 +831,7 @@ mod tests {
 
     fn vault() -> PathBuf {
         Path::new(env!("CARGO_MANIFEST_DIR"))
-            .join("../tests/fixtures/mini_vault")
+            .join("tests/fixtures/mini_vault")
             .canonicalize()
             .unwrap()
     }

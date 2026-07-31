@@ -2059,7 +2059,7 @@ mod tests {
 
     fn fixture_vault() -> String {
         Path::new(env!("CARGO_MANIFEST_DIR"))
-            .join("../tests/fixtures/mini_vault")
+            .join("tests/fixtures/mini_vault")
             .canonicalize()
             .unwrap()
             .to_string_lossy()

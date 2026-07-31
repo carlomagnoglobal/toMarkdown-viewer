@@ -1,0 +1,12 @@
+{
+  "nodes": [
+    {"id": "n1", "type": "text", "x": 0, "y": 0, "width": 250, "height": 60, "text": "# Idea\nCentral concept"},
+    {"id": "n2", "type": "file", "x": 300, "y": 0, "width": 250, "height": 60, "file": "Note A.md"},
+    {"id": "n3", "type": "link", "x": 0, "y": 200, "width": 250, "height": 60, "url": "https://example.com"},
+    {"id": "g1", "type": "group", "x": -50, "y": -50, "width": 700, "height": 400, "label": "Workspace"}
+  ],
+  "edges": [
+    {"id": "e1", "fromNode": "n1", "toNode": "n2", "label": "expands on"},
+    {"id": "e2", "fromNode": "n1", "toNode": "n3"}
+  ]
+}
