@@ -32,6 +32,28 @@ function getZoomState(key) {
 }
 
 /**
+ * Size the image is actually painted at, at transform scale 1.0.
+ *
+ * Both surfaces size their <img> box to the container and let object-fit:contain
+ * letterbox the image inside it, so clientWidth/Height describe the *box*, not
+ * the image. fitScale is how far the natural pixels were scaled to fit, which is
+ * what turns a transform scale into a true magnification percentage.
+ *
+ * naturalWidth comes from the browser, so it is populated even for files whose
+ * dimensions the Rust side failed to probe (SVGs report 0x0 there).
+ */
+function getPaintedSize(img) {
+  const nw = img.naturalWidth;
+  const nh = img.naturalHeight;
+  if (!nw || !nh) {
+    // Broken or not-yet-decoded image: degrade to treating the box as the image.
+    return { width: img.clientWidth, height: img.clientHeight, fitScale: 1 };
+  }
+  const fitScale = Math.min(img.clientWidth / nw, img.clientHeight / nh);
+  return { width: nw * fitScale, height: nh * fitScale, fitScale };
+}
+
+/**
  * Wire zoom + pan onto an image inside a wrapper.
  *
  * @param {HTMLImageElement} img     the image to transform
@@ -71,9 +93,15 @@ function createZoomController({
     img.style.transform = `scale(${s.zoom}) translate(${s.panX}px, ${s.panY}px)`;
   }
 
+  function displayPercent() {
+    // True magnification against natural pixels, not the transform scale: a 200px
+    // image filled into a 1000px pane reads 500%, which is the informative number.
+    return Math.round(getPaintedSize(img).fitScale * getZoomState(key).zoom * 100);
+  }
+
   function commit() {
     applyTransform();
-    if (onChange) onChange(getZoomState(key).zoom);
+    if (onChange) onChange(getZoomState(key).zoom, displayPercent());
   }
 
   function setZoom(z, { resetPan = true } = {}) {
@@ -121,10 +149,11 @@ function createZoomController({
     const scaledDeltaX = screenDeltaX / s.zoom;
     const scaledDeltaY = screenDeltaY / s.zoom;
 
-    // clientWidth/Height are the CSS-fitted layout size (pre-transform), which
-    // is what we scale from — naturalWidth would be wrong for a fitted image.
-    const displayWidth = img.clientWidth * s.zoom;
-    const displayHeight = img.clientHeight * s.zoom;
+    // Scale from the painted size, not clientWidth: object-fit:contain letterboxes
+    // the image inside a full-size box, so clientWidth is the container.
+    const painted = getPaintedSize(img);
+    const displayWidth = painted.width * s.zoom;
+    const displayHeight = painted.height * s.zoom;
     const maxPanX = Math.max(0, (displayWidth - wrapper.clientWidth) / 2 / s.zoom);
     const maxPanY = Math.max(0, (displayHeight - wrapper.clientHeight) / 2 / s.zoom);
 
@@ -151,12 +180,23 @@ function createZoomController({
     reset();
   }
 
+  // fitScale depends on both the decoded size and the container size, so the
+  // percentage is wrong until the image decodes and goes stale on every resize.
+  function onLoad() { commit(); }
+
   wrapper.addEventListener('wheel', onWheel, { passive: false });
   img.addEventListener('mousedown', onMouseDown);
   document.addEventListener('mousemove', onMouseMove);
   document.addEventListener('mouseup', onMouseUp);
   img.addEventListener('dblclick', onDblClick);
+  img.addEventListener('load', onLoad);
   if (onClick) img.addEventListener('click', onClickImg);
+
+  let resizeObserver = null;
+  if (typeof ResizeObserver !== 'undefined') {
+    resizeObserver = new ResizeObserver(() => commit());
+    resizeObserver.observe(wrapper);
+  }
 
   return {
     destroy() {
@@ -165,7 +205,9 @@ function createZoomController({
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
       img.removeEventListener('dblclick', onDblClick);
+      img.removeEventListener('load', onLoad);
       if (onClick) img.removeEventListener('click', onClickImg);
+      if (resizeObserver) { resizeObserver.disconnect(); resizeObserver = null; }
     },
     setSource(src) {
       key = stateKeyFor(src);

@@ -107,10 +107,11 @@
     padding: 16px; box-sizing: border-box;
     background: var(--bg); overflow: hidden;
   }
-  /* max-*:100% with auto width/height fits large images down but never upscales small ones. */
+  /* A full-size box plus object-fit:contain scales the image both up and down to
+     the pane edge, preserving aspect ratio. Note the painted image is letterboxed
+     inside this box, so clientWidth is the box, not the image — see getPaintedSize(). */
   .image-viewer-img {
-    max-width: 100%; max-height: 100%;
-    width: auto; height: auto;
+    width: 100%; height: 100%;
     object-fit: contain;
     border-radius: 4px; cursor: zoom-in;
     transform-origin: center center;
@@ -125,6 +126,28 @@
     opacity: .8; transition: opacity .15s; pointer-events: none;
   }
   .image-viewer:hover .image-viewer-meta { opacity: .25; }
+  /* Bottom-left; the metadata overlay owns bottom-right. Deliberately excluded
+     from the hover-dim rule above so the buttons stay usable. */
+  .image-viewer-controls {
+    position: absolute; left: 12px; bottom: 12px;
+    display: flex; align-items: center; gap: 4px;
+    padding: 5px 7px; border: 1px solid var(--border); border-radius: 6px;
+    background: var(--code-bg);
+    opacity: .85; transition: opacity .15s; pointer-events: auto;
+  }
+  .image-viewer-controls:hover { opacity: 1; }
+  .image-viewer-controls button {
+    min-width: 26px; padding: 3px 7px;
+    border: 1px solid var(--border); border-radius: 4px;
+    background: var(--bg); color: var(--fg);
+    font-size: 12px; line-height: 1.4; cursor: pointer;
+  }
+  .image-viewer-controls button:hover { background: var(--border); }
+  .image-viewer-zoom-label {
+    min-width: 48px; text-align: center;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px; color: var(--fg); user-select: none;
+  }
   #statusbar {
     border-top: 1px solid var(--border); background: var(--sidebar-bg);
     padding: 4px 14px; font-size: 12px; color: var(--muted);
@@ -985,10 +1008,33 @@ function syncImageMode() {
 
   if (inPaneZoom) { inPaneZoom.destroy(); inPaneZoom = null; }
   if (viewer && window.createZoomController) {
+    // Built here rather than in the Rust markup: it's UI chrome, and its
+    // lifecycle should match the controller's.
+    const stale = viewer.querySelector('.image-viewer-controls');
+    if (stale) stale.remove();
+    const controls = document.createElement('div');
+    controls.className = 'image-viewer-controls';
+    controls.innerHTML =
+      '<button data-act="out" title="Zoom out">−</button>' +
+      '<span class="image-viewer-zoom-label">100%</span>' +
+      '<button data-act="in" title="Zoom in">+</button>' +
+      '<button data-act="fit" title="Fit to pane">Fit</button>';
+    const label = controls.querySelector('.image-viewer-zoom-label');
+    viewer.appendChild(controls);
+
     inPaneZoom = window.createZoomController({
       img: viewer.querySelector('.image-viewer-img'),
       wrapper: viewer,
       onClick: (src) => openLightbox(src),
+      onChange: (_zoom, percent) => { label.textContent = percent + '%'; },
+    });
+
+    controls.addEventListener('click', (e) => {
+      const act = e.target.dataset && e.target.dataset.act;
+      if (!act || !inPaneZoom) return;
+      if (act === 'out') inPaneZoom.zoomOut();
+      else if (act === 'in') inPaneZoom.zoomIn();
+      else if (act === 'fit') inPaneZoom.reset();
     });
   }
 }
