@@ -3449,7 +3449,7 @@ async function doCopyFile(path, format) {
     const fileType = ext.toLowerCase();
 
     toast(`Copying as ${format}…`, 'info', 2000);
-    const result = await invoke('copy_file', { path, format, file_type: fileType });
+    const result = await invoke('copy_file', { path, format, fileType });
 
     // Format-specific messages
     const formatNames = {
