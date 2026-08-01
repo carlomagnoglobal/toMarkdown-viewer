@@ -80,11 +80,10 @@ jobs:
         with:
           node-version: 20
 
-      # npm install, not npm ci: package-lock.json is not tracked in this repo,
-      # so there is no lockfile for ci to read. Commit the lockfile and switch
-      # this to `npm ci` if you want reproducible dependency resolution.
+      # npm ci installs strictly from the committed package-lock.json, so a
+      # release builds the same dependency tree every time.
       - name: Install Tauri CLI
-        run: npm install
+        run: npm ci
 
       - uses: tauri-apps/tauri-action@v0
         env:

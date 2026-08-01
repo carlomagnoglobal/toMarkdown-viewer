@@ -1,0 +1,32 @@
+# Rust build output
+/target/
+
+# Node dependencies
+node_modules/
+
+# Lockfiles are deliberately NOT ignored. This is an application, not a library,
+# so Cargo.lock and package-lock.json are committed to make tagged releases
+# reproducible and to let CI use `npm ci`.
+
+# Tauri build artifacts
+*.dmg
+*.AppImage
+*.deb
+*.msi
+*.app
+
+# OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs and env
+*.log
+.env
+.env.local
