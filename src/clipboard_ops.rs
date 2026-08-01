@@ -1,7 +1,9 @@
 use std::path::Path;
-use sha2::{Sha256, Digest};
+use sha2::{Sha256, Sha512, Digest};
+use sha1::Sha1;
 use md5;
 use base64::Engine;
+use crc32fast::Hasher;
 
 pub fn copy_as_base64(file_path: &Path) -> Result<String, String> {
     let content = std::fs::read(file_path)
@@ -71,6 +73,51 @@ pub fn copy_crc(file_path: &Path) -> Result<String, String> {
     Ok(format!("{:08x}", crc))
 }
 
+pub fn copy_sha1(file_path: &Path) -> Result<String, String> {
+    let content = std::fs::read(file_path)
+        .map_err(|e| format!("Failed to read file: {}", e))?;
+
+    let mut hasher = Sha1::new();
+    hasher.update(&content);
+    let result = hasher.finalize();
+
+    Ok(format!("{:x}", result))
+}
+
+pub fn copy_sha512(file_path: &Path) -> Result<String, String> {
+    let content = std::fs::read(file_path)
+        .map_err(|e| format!("Failed to read file: {}", e))?;
+
+    let mut hasher = Sha512::new();
+    hasher.update(&content);
+    let result = hasher.finalize();
+
+    Ok(format!("{:x}", result))
+}
+
+pub fn copy_blake3(file_path: &Path) -> Result<String, String> {
+    let content = std::fs::read(file_path)
+        .map_err(|e| format!("Failed to read file: {}", e))?;
+
+    let hash = blake3::hash(&content);
+    let hex: String = hash.as_bytes()
+        .iter()
+        .map(|b| format!("{:02x}", b))
+        .collect();
+    Ok(hex)
+}
+
+pub fn copy_crc32(file_path: &Path) -> Result<String, String> {
+    let content = std::fs::read(file_path)
+        .map_err(|e| format!("Failed to read file: {}", e))?;
+
+    let mut hasher = Hasher::new();
+    hasher.update(&content);
+    let crc = hasher.finalize();
+
+    Ok(format!("{:08x}", crc))
+}
+
 fn detect_language(path: &Path) -> String {
     path.extension()
         .and_then(|ext| ext.to_str())
@@ -126,5 +173,55 @@ mod tests {
         let md = copy_as_markdown(&test_file, "code").unwrap();
         assert!(md.contains("```rust"));
         assert!(md.contains("fn main()"));
+    }
+
+    #[test]
+    fn test_copy_sha1() {
+        let temp_dir = TempDir::new().unwrap();
+        let test_file = temp_dir.path().join("test.txt");
+        fs::write(&test_file, "hello").unwrap();
+
+        let hash = copy_sha1(&test_file).unwrap();
+        assert_eq!(hash.len(), 40); // SHA1 in hex is 40 chars
+    }
+
+    #[test]
+    fn test_copy_sha512() {
+        let temp_dir = TempDir::new().unwrap();
+        let test_file = temp_dir.path().join("test.txt");
+        fs::write(&test_file, "hello").unwrap();
+
+        let hash = copy_sha512(&test_file).unwrap();
+        assert_eq!(hash.len(), 128); // SHA512 in hex is 128 chars
+    }
+
+    #[test]
+    fn test_copy_blake3() {
+        let temp_dir = TempDir::new().unwrap();
+        let test_file = temp_dir.path().join("test.txt");
+        fs::write(&test_file, "hello").unwrap();
+
+        let hash = copy_blake3(&test_file).unwrap();
+        assert_eq!(hash.len(), 64); // BLAKE3 in hex is 64 chars
+    }
+
+    #[test]
+    fn test_copy_crc32() {
+        let temp_dir = TempDir::new().unwrap();
+        let test_file = temp_dir.path().join("test.txt");
+        fs::write(&test_file, "hello").unwrap();
+
+        let hash = copy_crc32(&test_file).unwrap();
+        assert_eq!(hash.len(), 8); // CRC32 in hex is 8 chars (32 bits)
+    }
+
+    #[test]
+    fn test_copy_md5() {
+        let temp_dir = TempDir::new().unwrap();
+        let test_file = temp_dir.path().join("test.txt");
+        fs::write(&test_file, "hello").unwrap();
+
+        let hash = copy_md5(&test_file).unwrap();
+        assert_eq!(hash.len(), 32); // MD5 in hex is 32 chars
     }
 }

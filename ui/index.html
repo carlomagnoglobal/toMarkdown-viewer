@@ -3457,8 +3457,12 @@ async function doCopyFile(path, format) {
       'base64': 'Base64',
       'hex': 'Hex dump',
       'sha256': 'SHA256 hash',
+      'sha1': 'SHA1 hash',
+      'sha512': 'SHA512 hash',
       'md5': 'MD5 hash',
-      'crc': 'CRC hash'
+      'crc': 'CRC hash',
+      'crc32': 'CRC32 hash',
+      'blake3': 'BLAKE3 hash'
     };
 
     toast(`Copied to clipboard as ${formatNames[format] || format}`, 'success', 3500);
@@ -3520,9 +3524,13 @@ document.getElementById('tree-box').addEventListener('contextmenu', (e) => {
       { label: 'Markdown (Cmd+C)', run: async () => { await doCopyFile(path, 'markdown'); } },
       { label: 'Base64 (⇧Cmd+C)', run: async () => { await doCopyFile(path, 'base64'); } },
       { label: 'Hex dump (⌘H)', run: async () => { await doCopyFile(path, 'hex'); } },
+      { label: 'SHA1 hash', run: async () => { await doCopyFile(path, 'sha1'); } },
       { label: 'SHA256 hash', run: async () => { await doCopyFile(path, 'sha256'); } },
+      { label: 'SHA512 hash', run: async () => { await doCopyFile(path, 'sha512'); } },
       { label: 'MD5 hash', run: async () => { await doCopyFile(path, 'md5'); } },
       { label: 'CRC hash', run: async () => { await doCopyFile(path, 'crc'); } },
+      { label: 'CRC32 hash', run: async () => { await doCopyFile(path, 'crc32'); } },
+      { label: 'BLAKE3 hash', run: async () => { await doCopyFile(path, 'blake3'); } },
     ];
     items.push({ label: 'Copy as', submenu: copyAsSubmenu });
   }

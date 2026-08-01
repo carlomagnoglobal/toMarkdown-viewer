@@ -15,8 +15,12 @@ pub async fn copy_file(
         "markdown" => clipboard_ops::copy_as_markdown(p, &file_type)?,
         "hex" => clipboard_ops::copy_as_hex(p)?,
         "sha256" => clipboard_ops::copy_sha256(p)?,
+        "sha1" => clipboard_ops::copy_sha1(p)?,
+        "sha512" => clipboard_ops::copy_sha512(p)?,
         "md5" => clipboard_ops::copy_md5(p)?,
         "crc" => clipboard_ops::copy_crc(p)?,
+        "crc32" => clipboard_ops::copy_crc32(p)?,
+        "blake3" => clipboard_ops::copy_blake3(p)?,
         _ => return Err(format!("Unknown format: {}", format)),
     };
 
