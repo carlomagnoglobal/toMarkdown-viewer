@@ -1,0 +1,112 @@
+name: Release
+
+# Builds installers for every platform the README documents and attaches them to
+# a GitHub Release. Triggered by pushing a tag such as gui-v0.6.0, matching the
+# download URLs in README.md.
+on:
+  push:
+    tags:
+      - 'gui-v*'
+  # Lets you re-run a build for an existing tag: select the tag as the ref when
+  # dispatching. Useful because a tag that was already pushed will not retrigger
+  # the push event above.
+  workflow_dispatch:
+
+# tauri-action needs this to create the release and upload assets.
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.platform }}
+    strategy:
+      # Keep building the other platforms if one fails, so a single broken
+      # target does not cost you the whole release.
+      fail-fast: false
+      matrix:
+        include:
+          - name: macOS (Apple Silicon)
+            platform: macos-latest
+            target: aarch64-apple-darwin
+            args: '--target aarch64-apple-darwin'
+          - name: macOS (Intel)
+            platform: macos-latest
+            target: x86_64-apple-darwin
+            args: '--target x86_64-apple-darwin'
+          - name: Windows
+            platform: windows-latest
+            target: x86_64-pc-windows-msvc
+            args: ''
+          # Pinned to 22.04 rather than ubuntu-latest: binaries built against an
+          # older glibc run on newer distros, but not the reverse.
+          - name: Linux
+            platform: ubuntu-22.04
+            target: x86_64-unknown-linux-gnu
+            args: ''
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Linux build dependencies
+        if: matrix.platform == 'ubuntu-22.04'
+        run: |
+          sudo apt-get update
+          # webkit2gtk-4.1 is the Tauri v2 webview; libxdo is needed for
+          # fileAssociations, patchelf for the AppImage bundle.
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            libappindicator3-dev \
+            librsvg2-dev \
+            patchelf \
+            libxdo-dev \
+            libssl-dev \
+            build-essential \
+            file \
+            wget
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          # Cargo.toml declares rust-version = "1.88".
+          targets: ${{ matrix.target }}
+
+      - name: Cache Rust build
+        uses: Swatinem/rust-cache@v2
+        with:
+          key: ${{ matrix.target }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # npm install, not npm ci: package-lock.json is not tracked in this repo,
+      # so there is no lockfile for ci to read. Commit the lockfile and switch
+      # this to `npm ci` if you want reproducible dependency resolution.
+      - name: Install Tauri CLI
+        run: npm install
+
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # macOS code signing and notarization. Without these the app builds
+          # unsigned, and users who download it hit a Gatekeeper warning. To
+          # enable, add these as repository secrets; tauri-action skips signing
+          # when they are absent.
+          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        with:
+          # Reuses the pushed tag, so assets land on gui-v0.6.0 rather than a
+          # new ref. On workflow_dispatch this resolves to the selected ref.
+          tagName: ${{ github.ref_name }}
+          releaseName: 'toMarkdown Viewer __VERSION__'
+          releaseBody: 'See the assets below to download and install.'
+          # Created as a draft so you can check the artifacts before anything is
+          # public. Set to false to publish automatically on tag push.
+          releaseDraft: true
+          prerelease: false
+          args: ${{ matrix.args }}
