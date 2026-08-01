@@ -139,14 +139,15 @@ impl FileViewer for ImageViewer {
             format!("{} bytes", self.file_size)
         };
 
-        // Build HTML with centered image and metadata
+        // Build HTML with centered image and metadata. Sizing lives in CSS
+        // (.image-viewer* in ui/index.html) so the pane can fill the window.
         let html = format!(
-            r#"<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; min-height: 100vh; background: var(--bg);">
-    <img src="{}" style="max-width: 90%; max-height: 70vh; object-fit: contain; border-radius: 4px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); margin-bottom: 20px;" alt="Image preview" />
-    <div style="padding: 12px 16px; background-color: var(--code-bg); border: 1px solid var(--border); border-radius: 4px; text-align: center; font-family: monospace; font-size: 12px; color: var(--fg);">
-        <div style="margin: 4px 0;"><strong>Format:</strong> {}</div>
-        <div style="margin: 4px 0;"><strong>Dimensions:</strong> {} × {} px</div>
-        <div style="margin: 4px 0;"><strong>File Size:</strong> {}</div>
+            r#"<div class="image-viewer">
+    <img class="image-viewer-img" src="{}" alt="Image preview" />
+    <div class="image-viewer-meta">
+        <div><strong>Format:</strong> {}</div>
+        <div><strong>Dimensions:</strong> {} × {} px</div>
+        <div><strong>File Size:</strong> {}</div>
     </div>
 </div>"#,
             data_url,

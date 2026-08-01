@@ -60,7 +60,9 @@ fn test_image_viewer_render() {
     // Verify HTML structure
     assert!(html.contains("<img"), "HTML should contain <img> tag");
     assert!(html.contains("data:image/svg;base64"), "HTML should contain data URL");
-    assert!(html.contains("max-width: 90%"), "HTML should have max-width styling");
+    // Sizing lives in CSS (ui/index.html); the markup only carries the hooks.
+    assert!(html.contains("image-viewer"), "HTML should have the viewer container class");
+    assert!(html.contains("image-viewer-img"), "HTML should have the image class");
 
     // Verify metadata is present
     assert!(html.contains("Format:"), "HTML should display Format");
