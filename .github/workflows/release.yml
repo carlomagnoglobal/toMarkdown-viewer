@@ -88,16 +88,21 @@ jobs:
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # macOS code signing and notarization. Without these the app builds
-          # unsigned, and users who download it hit a Gatekeeper warning. To
-          # enable, add these as repository secrets; tauri-action skips signing
-          # when they are absent.
-          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
-          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
-          APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
-          APPLE_ID: ${{ secrets.APPLE_ID }}
-          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          # macOS code signing is intentionally NOT configured here.
+          #
+          # Do not add these as `${{ secrets.APPLE_CERTIFICATE }}` while the
+          # secrets are unset: a missing secret expands to an empty string, so
+          # the variable is *defined but empty*. Tauri then treats signing as
+          # requested and fails with "failed to import keychain certificate",
+          # which is exactly how the first 0.6.0 build broke on both Macs.
+          #
+          # To enable signing, add the repository secrets first, then uncomment:
+          # APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          # APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          # APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+          # APPLE_ID: ${{ secrets.APPLE_ID }}
+          # APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+          # APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         with:
           # Reuses the pushed tag, so assets land on gui-v0.6.0 rather than a
           # new ref. On workflow_dispatch this resolves to the selected ref.
