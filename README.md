@@ -21,8 +21,8 @@ A cross-platform Tauri application that provides a beautiful, feature-rich viewe
 
 ### macOS
 ```bash
-wget https://github.com/carlomagnoglobal/toMarkdown-viewer/releases/download/gui-v0.5.1/toMarkdown-viewer_0.5.1_aarch64.dmg
-open toMarkdown-viewer_0.5.1_aarch64.dmg
+wget https://github.com/carlomagnoglobal/toMarkdown-viewer/releases/download/gui-v0.6.0/toMarkdown-viewer_0.6.0_aarch64.dmg
+open toMarkdown-viewer_0.6.0_aarch64.dmg
 ```
 
 ### Windows
@@ -78,6 +78,7 @@ npm run tauri build --release
 
 | Viewer | toMarkdownMCP |
 |--------|---------------|
+| 0.6.0  | ≥0.1.0        |
 | 0.5.1  | ≥0.1.0        |
 | 0.5.0  | ≥0.1.0        |
 
