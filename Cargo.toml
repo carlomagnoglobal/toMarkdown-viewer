@@ -1,6 +1,6 @@
 [package]
 name = "to_markdown_gui"
-version = "0.6.0"
+version = "0.6.1"
 edition = "2021"
 rust-version = "1.88"
 description = "Desktop Markdown/vault viewer for toMarkdownMCP (Tauri)"
@@ -11,7 +11,7 @@ repository = "https://github.com/carlomagnoglobal/toMarkdown-viewer"
 tauri-build = { version = "2", features = [] }
 
 [dependencies]
-to_markdown_mcp = "0.2"
+to_markdown_mcp = "0.3"
 tauri = { version = "2", features = [] }
 tauri-plugin-dialog = "2"
 tauri-plugin-window-state = "2"

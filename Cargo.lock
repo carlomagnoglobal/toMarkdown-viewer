@@ -5002,6 +5002,7 @@ dependencies = [
  "ego-tree",
  "getopts",
  "html5ever 0.26.0",
+ "indexmap 2.14.0",
  "once_cell",
  "selectors 0.25.0",
  "smallvec",
@@ -6197,7 +6198,7 @@ checksum = "1f3ccbac311fea05f86f61904b462b55fb3df8837a366dfc601a0161d0532f20"
 
 [[package]]
 name = "to_markdown_gui"
-version = "0.6.0"
+version = "0.6.1"
 dependencies = [
  "anyhow",
  "base64 0.21.7",
@@ -6238,9 +6239,9 @@ dependencies = [
 
 [[package]]
 name = "to_markdown_mcp"
-version = "0.2.0"
+version = "0.3.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e22f164257f804de44d2bf0140d2da39b2be294b1253f7f513917d9601bd1b2c"
+checksum = "4f5cc928db7a0d297b97ad1c00125f2dcb9d53a0f94ccec4170e43f1cec15d0a"
 dependencies = [
  "anyhow",
  "calamine",
@@ -6249,6 +6250,7 @@ dependencies = [
  "clap",
  "crossterm",
  "csv",
+ "encoding_rs",
  "epub",
  "feed-rs",
  "futures",
