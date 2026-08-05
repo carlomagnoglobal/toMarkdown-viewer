@@ -22,12 +22,12 @@ A cross-platform Tauri application that provides a beautiful, feature-rich viewe
 ### macOS
 ```bash
 # Apple Silicon
-wget https://github.com/carlomagnoglobal/toMarkdown-viewer/releases/download/gui-v0.6.1/toMarkdown.Viewer_0.6.1_aarch64.dmg
-open toMarkdown.Viewer_0.6.1_aarch64.dmg
+wget https://github.com/carlomagnoglobal/toMarkdown-viewer/releases/download/gui-v0.6.2/toMarkdown.Viewer_0.6.2_aarch64.dmg
+open toMarkdown.Viewer_0.6.2_aarch64.dmg
 
 # Intel
-wget https://github.com/carlomagnoglobal/toMarkdown-viewer/releases/download/gui-v0.6.1/toMarkdown.Viewer_0.6.1_x64.dmg
-open toMarkdown.Viewer_0.6.1_x64.dmg
+wget https://github.com/carlomagnoglobal/toMarkdown-viewer/releases/download/gui-v0.6.2/toMarkdown.Viewer_0.6.2_x64.dmg
+open toMarkdown.Viewer_0.6.2_x64.dmg
 ```
 The app is unsigned, so macOS Gatekeeper will block it on first launch. Right-click
 the app in Finder and choose **Open** to bypass this once.
@@ -35,7 +35,7 @@ the app in Finder and choose **Open** to bypass this once.
 ### Windows
 Download and run the installer from the
 [latest release](https://github.com/carlomagnoglobal/toMarkdown-viewer/releases/latest):
-`toMarkdown.Viewer_0.6.1_x64-setup.exe` (or the `.msi`).
+`toMarkdown.Viewer_0.6.2_x64-setup.exe` (or the `.msi`).
 
 ### Linux
 Download from the
@@ -84,6 +84,7 @@ npm run tauri build --release
 
 | Viewer | toMarkdownMCP |
 |--------|---------------|
+| 0.6.2  | ≥0.1.0        |
 | 0.6.1  | ≥0.1.0        |
 | 0.6.0  | ≥0.1.0        |
 | 0.5.1  | ≥0.1.0        |

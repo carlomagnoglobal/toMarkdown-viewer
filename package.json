@@ -1,6 +1,6 @@
 {
   "name": "tomarkdown-viewer",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "Desktop Markdown vault viewer for toMarkdownMCP",
   "type": "module",
   "scripts": {
