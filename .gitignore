@@ -22,6 +22,7 @@ desktop.ini
 
 # Editors
 .idea/
+.obsidian/
 *.swp
 *.swo
 *~
