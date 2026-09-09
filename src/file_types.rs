@@ -101,6 +101,22 @@ const LANGUAGE_MAP: &[(&str, &str)] = &[
     ("sqlite", "sql"),
     ("tsql", "sql"),
     ("plsql", "sql"),
+    ("psql", "sql"),
+    // Oracle PL/SQL object exports (Toad for Oracle, PL/SQL Developer, SQL Developer)
+    ("pkb", "sql"),
+    ("pks", "sql"),
+    ("pkh", "sql"),
+    ("pck", "sql"),
+    ("spc", "sql"),
+    ("bdy", "sql"),
+    ("typ", "sql"),
+    ("tps", "sql"),
+    ("tpb", "sql"),
+    ("trg", "sql"),
+    ("prc", "sql"),
+    ("fnc", "sql"),
+    ("vw", "sql"),
+    ("tab", "sql"),
     // Markup/Templates
     ("markdown", "markdown"),
     ("tex", "latex"),
@@ -278,6 +294,20 @@ mod tests {
         match detect_file_type(Path::new("image.webp")) {
             FileType::Image { format } => assert_eq!(format, "webp"),
             _ => panic!("Expected webp image"),
+        }
+    }
+
+    #[test]
+    fn test_database_ide_sql_extensions() {
+        for ext in [
+            "pkb", "pks", "pkh", "pck", "spc", "bdy", "typ", "tps", "tpb", "trg", "prc", "fnc",
+            "vw", "tab", "psql",
+        ] {
+            let path_str = format!("file.{ext}");
+            match detect_file_type(Path::new(&path_str)) {
+                FileType::Code { language } => assert_eq!(language, "sql", "for extension {ext}"),
+                _ => panic!("Expected sql code for extension {ext}"),
+            }
         }
     }
 
