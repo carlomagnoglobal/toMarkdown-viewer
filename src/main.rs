@@ -1459,12 +1459,21 @@ fn take_pending_opens(state: tauri::State<PendingOpens>) -> Vec<String> {
 }
 
 fn build_menu(app: &tauri::AppHandle) -> tauri::Result<tauri::menu::Menu<tauri::Wry>> {
-    use tauri::menu::{AboutMetadata, Menu, MenuItem, PredefinedMenuItem, Submenu};
+    use tauri::menu::{AboutMetadataBuilder, Menu, MenuItem, PredefinedMenuItem, Submenu};
+    let about_metadata = AboutMetadataBuilder::new()
+        .name(Some("toMarkdown Viewer"))
+        .version(Some(env!("CARGO_PKG_VERSION")))
+        .authors(Some(vec!["Carlo Magno Global".to_string()]))
+        .comments(Some("Desktop Markdown/vault viewer for toMarkdownMCP"))
+        .copyright(Some("© 2026 Carlo Magno Global"))
+        .license(Some("MIT"))
+        .website(Some("https://github.com/carlomagnoglobal/toMarkdown-viewer"))
+        .website_label(Some("GitHub Repository"))
+        .build();
     let app_menu = Submenu::with_items(app, "toMarkdown", true, &[
-        &PredefinedMenuItem::about(app, None, Some(AboutMetadata::default()))?,
-        &PredefinedMenuItem::separator(app)?,
         &PredefinedMenuItem::hide(app, None)?,
-        &PredefinedMenuItem::quit(app, None)?,
+        &PredefinedMenuItem::separator(app)?,
+        &MenuItem::with_id(app, "exit", "Exit", true, None::<&str>)?,
     ])?;
     let file = Submenu::with_items(app, "File", true, &[
         &MenuItem::with_id(app, "open-folder", "Open Folder…", true, Some("CmdOrCtrl+Shift+O"))?,
@@ -1501,6 +1510,8 @@ fn build_menu(app: &tauri::AppHandle) -> tauri::Result<tauri::menu::Menu<tauri::
     let window = Submenu::with_items(app, "Window", true, &[
         &PredefinedMenuItem::minimize(app, None)?,
         &PredefinedMenuItem::maximize(app, None)?,
+        &PredefinedMenuItem::separator(app)?,
+        &PredefinedMenuItem::about(app, Some("About toMarkdown Viewer"), Some(about_metadata))?,
     ])?;
     Menu::with_items(app, &[&app_menu, &file, &edit, &view, &window])
 }
@@ -1956,6 +1967,10 @@ fn main() {
         .manage(Mutex::new(HashMap::<String, ZoomCalculator>::new()))
         .menu(build_menu)
         .on_menu_event(|app, event| {
+            if event.id().0 == "exit" {
+                app.exit(0);
+                return;
+            }
             let _ = app.emit("menu-action", event.id().0.clone());
         })
         .setup(|app| {
