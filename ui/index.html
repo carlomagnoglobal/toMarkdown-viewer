@@ -42,6 +42,116 @@
       --mark-bg: #b8860b66; --shadow: 0 12px 40px rgba(0, 0, 0, .55);
     }
   }
+  :root[data-theme="rose"] {
+    color-scheme: light;
+    --bg: #fff0f5; --fg: #4a1942; --muted: #9b6b8c; --border: #f3c6dc;
+    --sidebar-bg: #ffe4ef; --accent: #d6336c; --code-bg: #fbe0ea;
+    --hover: #ffd9e8; --active: #ffc2dc;
+    --danger: #c9184a; --success: #2f9e44; --warning: #e8590c; --question: #ae3ec9;
+    --mark-bg: #ff8fab66; --shadow: 0 12px 40px rgba(214, 51, 108, .25);
+  }
+  :root[data-theme="blue"] {
+    color-scheme: light;
+    --bg: #eef5ff; --fg: #10243e; --muted: #5b7290; --border: #bcd6f2;
+    --sidebar-bg: #dceaff; --accent: #1c6fd9; --code-bg: #e3edfb;
+    --hover: #d3e5fb; --active: #bcdcff;
+    --danger: #d1242f; --success: #1a7f37; --warning: #d29922; --question: #6f42c1;
+    --mark-bg: #4a90e266; --shadow: 0 12px 40px rgba(16, 36, 62, .25);
+  }
+  :root[data-theme="darkblue"] {
+    color-scheme: dark;
+    --bg: #071426; --fg: #dbe9ff; --muted: #7b93b3; --border: #1c3454;
+    --sidebar-bg: #04101f; --accent: #4da3ff; --code-bg: #0e1f38;
+    --hover: #10233f; --active: #123566;
+    --danger: #ff6b6b; --success: #51cf66; --warning: #ffa94d; --question: #b197fc;
+    --mark-bg: #4da3ff55; --shadow: 0 12px 40px rgba(0, 0, 0, .6);
+    --hl-heading: #82b6ff; --hl-code: #ffcc80; --hl-link: #82b6ff; --hl-quote: #9db3d6;
+  }
+  :root[data-theme="lightblue"] {
+    color-scheme: light;
+    --bg: #f4fafe; --fg: #1b3a4b; --muted: #6d8b9a; --border: #cfe8f5;
+    --sidebar-bg: #e3f3fb; --accent: #3aa0d8; --code-bg: #e9f5fb;
+    --hover: #dbeef8; --active: #c6e6f5;
+    --danger: #d1242f; --success: #1a7f37; --warning: #d29922; --question: #6f42c1;
+    --mark-bg: #3aa0d866; --shadow: 0 12px 40px rgba(27, 58, 75, .2);
+  }
+  :root[data-theme="green"] {
+    color-scheme: light;
+    --bg: #eefaf0; --fg: #0d3a1f; --muted: #5b8a6a; --border: #bfe6cc;
+    --sidebar-bg: #dcf3e3; --accent: #1f9d55; --code-bg: #e2f5e7;
+    --hover: #d1eedb; --active: #b8e6c6;
+    --danger: #d1242f; --success: #1a7f37; --warning: #d29922; --question: #6f42c1;
+    --mark-bg: #4caf5066; --shadow: 0 12px 40px rgba(13, 58, 31, .25);
+  }
+  :root[data-theme="darkgreen"] {
+    color-scheme: dark;
+    --bg: #071f12; --fg: #d9f5e2; --muted: #7fa98d; --border: #1c3d28;
+    --sidebar-bg: #04150a; --accent: #4ade80; --code-bg: #0e2a1a;
+    --hover: #102b1a; --active: #14432a;
+    --danger: #ff6b6b; --success: #51cf66; --warning: #ffa94d; --question: #b197fc;
+    --mark-bg: #4ade8055; --shadow: 0 12px 40px rgba(0, 0, 0, .6);
+    --hl-heading: #7ee0a0; --hl-code: #ffcc80; --hl-link: #7ee0a0; --hl-quote: #9dcbb0;
+  }
+  :root[data-theme="lightgreen"] {
+    color-scheme: light;
+    --bg: #f5fbf6; --fg: #1e3b28; --muted: #6f9c80; --border: #d6ecdb;
+    --sidebar-bg: #e8f6ea; --accent: #4caf50; --code-bg: #ecf7ed;
+    --hover: #dcf0df; --active: #c8e8cd;
+    --danger: #d1242f; --success: #1a7f37; --warning: #d29922; --question: #6f42c1;
+    --mark-bg: #81c78466; --shadow: 0 12px 40px rgba(30, 59, 40, .2);
+  }
+  :root[data-theme="gold"] {
+    color-scheme: light;
+    --bg: #fffaf0; --fg: #4a3800; --muted: #9c8a5c; --border: #f0dca0;
+    --sidebar-bg: #fdf3d7; --accent: #b8860b; --code-bg: #f7ecc9;
+    --hover: #f5e6ae; --active: #edd888;
+    --danger: #c9184a; --success: #2f9e44; --warning: #d2691e; --question: #8250df;
+    --mark-bg: #ffd70066; --shadow: 0 12px 40px rgba(74, 56, 0, .25);
+  }
+  :root[data-theme="silver"] {
+    color-scheme: light;
+    --bg: #f5f6f7; --fg: #2b2f33; --muted: #6c7378; --border: #d8dce0;
+    --sidebar-bg: #e8eaec; --accent: #6c7a89; --code-bg: #eceeef;
+    --hover: #dde0e3; --active: #cfd3d7;
+    --danger: #d1242f; --success: #1a7f37; --warning: #d29922; --question: #6f42c1;
+    --mark-bg: #c0c5cb66; --shadow: 0 12px 40px rgba(43, 47, 51, .2);
+  }
+  :root[data-theme="darkrose"] {
+    color-scheme: dark;
+    --bg: #1f0a17; --fg: #ffd9ec; --muted: #b083a0; --border: #3d1a2e;
+    --sidebar-bg: #150710; --accent: #ff6fa5; --code-bg: #2b0f21;
+    --hover: #2a0f20; --active: #47172f;
+    --danger: #ff6b6b; --success: #51cf66; --warning: #ffa94d; --question: #d896ff;
+    --mark-bg: #ff6fa555; --shadow: 0 12px 40px rgba(0, 0, 0, .6);
+    --hl-heading: #ff9fc4; --hl-code: #ffcc80; --hl-link: #ff9fc4; --hl-quote: #d6a0bd;
+  }
+  :root[data-theme="darkgold"] {
+    color-scheme: dark;
+    --bg: #1a1400; --fg: #ffe8a3; --muted: #b8a065; --border: #3d3210;
+    --sidebar-bg: #120d00; --accent: #ffc94d; --code-bg: #2a2205;
+    --hover: #2b2308; --active: #453811;
+    --danger: #ff6b6b; --success: #51cf66; --warning: #ffa94d; --question: #d3b3ff;
+    --mark-bg: #ffc94d55; --shadow: 0 12px 40px rgba(0, 0, 0, .6);
+    --hl-heading: #ffd479; --hl-code: #ffb454; --hl-link: #ffd479; --hl-quote: #d8c691;
+  }
+  :root[data-theme="darksilver"] {
+    color-scheme: dark;
+    --bg: #16181a; --fg: #e8eaec; --muted: #9aa0a6; --border: #34383c;
+    --sidebar-bg: #0f1112; --accent: #b0b8bf; --code-bg: #202325;
+    --hover: #202325; --active: #2d3134;
+    --danger: #ff6b6b; --success: #51cf66; --warning: #ffa94d; --question: #b197fc;
+    --mark-bg: #b0b8bf55; --shadow: 0 12px 40px rgba(0, 0, 0, .6);
+    --hl-heading: #c7ccd1; --hl-code: #ffcc80; --hl-link: #c7ccd1; --hl-quote: #9aa0a6;
+  }
+  :root[data-theme="blacksilver"] {
+    color-scheme: dark;
+    --bg: #050505; --fg: #f0f0f0; --muted: #9a9a9a; --border: #2a2a2a;
+    --sidebar-bg: #000000; --accent: #c0c0c0; --code-bg: #121212;
+    --hover: #161616; --active: #232323;
+    --danger: #ff6b6b; --success: #51cf66; --warning: #ffa94d; --question: #b197fc;
+    --mark-bg: #c0c0c055; --shadow: 0 12px 40px rgba(0, 0, 0, .75);
+    --hl-heading: #d4d4d4; --hl-code: #ffcc80; --hl-link: #d4d4d4; --hl-quote: #a0a0a0;
+  }
   select, option {
     background: var(--bg);
     color: var(--fg);
@@ -655,6 +765,19 @@
         <option value="light">Light</option>
         <option value="dark">Dark</option>
         <option value="sepia">Sepia</option>
+        <option value="rose">Rose</option>
+        <option value="blue">Blue</option>
+        <option value="darkblue">Dark Blue</option>
+        <option value="lightblue">Light Blue</option>
+        <option value="green">Green</option>
+        <option value="darkgreen">Dark Green</option>
+        <option value="lightgreen">Light Green</option>
+        <option value="gold">Gold</option>
+        <option value="silver">Silver</option>
+        <option value="darkrose">Dark Rose</option>
+        <option value="darkgold">Dark Gold</option>
+        <option value="darksilver">Dark Silver</option>
+        <option value="blacksilver">Black Silver</option>
       </select>
       <button id="custom-css" title="Load a custom CSS file">Custom CSS</button>
       <button id="export-html">Export HTML</button>
@@ -801,7 +924,7 @@
         <!-- Theme Section -->
         <div style="margin-bottom: 20px;">
           <div style="font-weight: 600; font-size: 13px; color: var(--fg); margin-bottom: 8px;">Theme</div>
-          <div style="display: flex; gap: 16px;">
+          <div style="display: flex; flex-wrap: wrap; gap: 16px;">
             <label style="display: flex; align-items: center; cursor: pointer; font-size: 13px;">
               <input type="radio" name="theme-pref" value="light" style="margin-right: 8px; cursor: pointer;">
               <span>Light</span>
@@ -813,6 +936,58 @@
             <label style="display: flex; align-items: center; cursor: pointer; font-size: 13px;">
               <input type="radio" name="theme-pref" value="sepia" style="margin-right: 8px; cursor: pointer;">
               <span>Sepia</span>
+            </label>
+            <label style="display: flex; align-items: center; cursor: pointer; font-size: 13px;">
+              <input type="radio" name="theme-pref" value="rose" style="margin-right: 8px; cursor: pointer;">
+              <span>Rose</span>
+            </label>
+            <label style="display: flex; align-items: center; cursor: pointer; font-size: 13px;">
+              <input type="radio" name="theme-pref" value="blue" style="margin-right: 8px; cursor: pointer;">
+              <span>Blue</span>
+            </label>
+            <label style="display: flex; align-items: center; cursor: pointer; font-size: 13px;">
+              <input type="radio" name="theme-pref" value="darkblue" style="margin-right: 8px; cursor: pointer;">
+              <span>Dark Blue</span>
+            </label>
+            <label style="display: flex; align-items: center; cursor: pointer; font-size: 13px;">
+              <input type="radio" name="theme-pref" value="lightblue" style="margin-right: 8px; cursor: pointer;">
+              <span>Light Blue</span>
+            </label>
+            <label style="display: flex; align-items: center; cursor: pointer; font-size: 13px;">
+              <input type="radio" name="theme-pref" value="green" style="margin-right: 8px; cursor: pointer;">
+              <span>Green</span>
+            </label>
+            <label style="display: flex; align-items: center; cursor: pointer; font-size: 13px;">
+              <input type="radio" name="theme-pref" value="darkgreen" style="margin-right: 8px; cursor: pointer;">
+              <span>Dark Green</span>
+            </label>
+            <label style="display: flex; align-items: center; cursor: pointer; font-size: 13px;">
+              <input type="radio" name="theme-pref" value="lightgreen" style="margin-right: 8px; cursor: pointer;">
+              <span>Light Green</span>
+            </label>
+            <label style="display: flex; align-items: center; cursor: pointer; font-size: 13px;">
+              <input type="radio" name="theme-pref" value="gold" style="margin-right: 8px; cursor: pointer;">
+              <span>Gold</span>
+            </label>
+            <label style="display: flex; align-items: center; cursor: pointer; font-size: 13px;">
+              <input type="radio" name="theme-pref" value="silver" style="margin-right: 8px; cursor: pointer;">
+              <span>Silver</span>
+            </label>
+            <label style="display: flex; align-items: center; cursor: pointer; font-size: 13px;">
+              <input type="radio" name="theme-pref" value="darkrose" style="margin-right: 8px; cursor: pointer;">
+              <span>Dark Rose</span>
+            </label>
+            <label style="display: flex; align-items: center; cursor: pointer; font-size: 13px;">
+              <input type="radio" name="theme-pref" value="darkgold" style="margin-right: 8px; cursor: pointer;">
+              <span>Dark Gold</span>
+            </label>
+            <label style="display: flex; align-items: center; cursor: pointer; font-size: 13px;">
+              <input type="radio" name="theme-pref" value="darksilver" style="margin-right: 8px; cursor: pointer;">
+              <span>Dark Silver</span>
+            </label>
+            <label style="display: flex; align-items: center; cursor: pointer; font-size: 13px;">
+              <input type="radio" name="theme-pref" value="blacksilver" style="margin-right: 8px; cursor: pointer;">
+              <span>Black Silver</span>
             </label>
           </div>
         </div>
@@ -974,9 +1149,10 @@ const listen = window.__TAURI__.event.listen;
 
 // ---- Post-render: vendored KaTeX math + Mermaid diagrams + syntax CSS ----
 let mermaidSeq = 0;
+const DARK_THEMES = new Set(['dark', 'darkblue', 'darkgreen', 'darkrose', 'darkgold', 'darksilver', 'blacksilver']);
 function effectiveDark() {
   const t = document.documentElement.dataset.theme;
-  return t === 'dark' || (t === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
+  return DARK_THEMES.has(t) || (t === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
 }
 async function postRender(container) {
   if (window.mermaid) mermaid.initialize({ startOnLoad: false, theme: effectiveDark() ? 'dark' : 'neutral' });
@@ -1186,6 +1362,19 @@ const EXPORT_CSS = {
   light: { bg:'#ffffff', fg:'#1f2328', muted:'#59636e', border:'#d1d9e0', code:'#f6f8fa', accent:'#0969da' },
   dark:  { bg:'#0d1117', fg:'#f0f6fc', muted:'#9198a1', border:'#3d444d', code:'#151b23', accent:'#4493f8' },
   sepia: { bg:'#f4ecd8', fg:'#433422', muted:'#8a7a5c', border:'#d8cba8', code:'#ece1c4', accent:'#9a6a28' },
+  rose:  { bg:'#fff0f5', fg:'#4a1942', muted:'#9b6b8c', border:'#f3c6dc', code:'#fbe0ea', accent:'#d6336c' },
+  blue:  { bg:'#eef5ff', fg:'#10243e', muted:'#5b7290', border:'#bcd6f2', code:'#e3edfb', accent:'#1c6fd9' },
+  darkblue:  { bg:'#071426', fg:'#dbe9ff', muted:'#7b93b3', border:'#1c3454', code:'#0e1f38', accent:'#4da3ff' },
+  lightblue: { bg:'#f4fafe', fg:'#1b3a4b', muted:'#6d8b9a', border:'#cfe8f5', code:'#e9f5fb', accent:'#3aa0d8' },
+  green:      { bg:'#eefaf0', fg:'#0d3a1f', muted:'#5b8a6a', border:'#bfe6cc', code:'#e2f5e7', accent:'#1f9d55' },
+  darkgreen:  { bg:'#071f12', fg:'#d9f5e2', muted:'#7fa98d', border:'#1c3d28', code:'#0e2a1a', accent:'#4ade80' },
+  lightgreen: { bg:'#f5fbf6', fg:'#1e3b28', muted:'#6f9c80', border:'#d6ecdb', code:'#ecf7ed', accent:'#4caf50' },
+  gold:       { bg:'#fffaf0', fg:'#4a3800', muted:'#9c8a5c', border:'#f0dca0', code:'#f7ecc9', accent:'#b8860b' },
+  silver:     { bg:'#f5f6f7', fg:'#2b2f33', muted:'#6c7378', border:'#d8dce0', code:'#eceeef', accent:'#6c7a89' },
+  darkrose:   { bg:'#1f0a17', fg:'#ffd9ec', muted:'#b083a0', border:'#3d1a2e', code:'#2b0f21', accent:'#ff6fa5' },
+  darkgold:   { bg:'#1a1400', fg:'#ffe8a3', muted:'#b8a065', border:'#3d3210', code:'#2a2205', accent:'#ffc94d' },
+  darksilver: { bg:'#16181a', fg:'#e8eaec', muted:'#9aa0a6', border:'#34383c', code:'#202325', accent:'#b0b8bf' },
+  blacksilver:{ bg:'#050505', fg:'#f0f0f0', muted:'#9a9a9a', border:'#2a2a2a', code:'#121212', accent:'#c0c0c0' },
 };
 function exportCss(theme) {
   const t = EXPORT_CSS[theme] || EXPORT_CSS.light;
@@ -3114,6 +3303,19 @@ const COMMANDS = [
   { label: 'Theme: Light', run: () => applyTheme('light') },
   { label: 'Theme: Dark', run: () => applyTheme('dark') },
   { label: 'Theme: Sepia', run: () => applyTheme('sepia') },
+  { label: 'Theme: Rose', run: () => applyTheme('rose') },
+  { label: 'Theme: Blue', run: () => applyTheme('blue') },
+  { label: 'Theme: Dark Blue', run: () => applyTheme('darkblue') },
+  { label: 'Theme: Light Blue', run: () => applyTheme('lightblue') },
+  { label: 'Theme: Green', run: () => applyTheme('green') },
+  { label: 'Theme: Dark Green', run: () => applyTheme('darkgreen') },
+  { label: 'Theme: Light Green', run: () => applyTheme('lightgreen') },
+  { label: 'Theme: Gold', run: () => applyTheme('gold') },
+  { label: 'Theme: Silver', run: () => applyTheme('silver') },
+  { label: 'Theme: Dark Rose', run: () => applyTheme('darkrose') },
+  { label: 'Theme: Dark Gold', run: () => applyTheme('darkgold') },
+  { label: 'Theme: Dark Silver', run: () => applyTheme('darksilver') },
+  { label: 'Theme: Black Silver', run: () => applyTheme('blacksilver') },
   { label: 'Settings…', run: openSettings },
   { label: 'Keyboard Shortcuts (?)', run: openCheatsheet },
   { label: 'Localize External Links…', run: localizeAllDialog },
@@ -4130,6 +4332,19 @@ const MENU_ACTIONS = {
   'theme-light': () => applyTheme('light'),
   'theme-dark': () => applyTheme('dark'),
   'theme-sepia': () => applyTheme('sepia'),
+  'theme-rose': () => applyTheme('rose'),
+  'theme-blue': () => applyTheme('blue'),
+  'theme-darkblue': () => applyTheme('darkblue'),
+  'theme-lightblue': () => applyTheme('lightblue'),
+  'theme-green': () => applyTheme('green'),
+  'theme-darkgreen': () => applyTheme('darkgreen'),
+  'theme-lightgreen': () => applyTheme('lightgreen'),
+  'theme-gold': () => applyTheme('gold'),
+  'theme-silver': () => applyTheme('silver'),
+  'theme-darkrose': () => applyTheme('darkrose'),
+  'theme-darkgold': () => applyTheme('darkgold'),
+  'theme-darksilver': () => applyTheme('darksilver'),
+  'theme-blacksilver': () => applyTheme('blacksilver'),
 };
 listen('menu-action', (e) => { MENU_ACTIONS[e.payload]?.(); });
 
