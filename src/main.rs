@@ -1466,7 +1466,7 @@ fn build_menu(app: &tauri::AppHandle) -> tauri::Result<tauri::menu::Menu<tauri::
         .authors(Some(vec!["Carlo Magno Global".to_string()]))
         .comments(Some("Desktop Markdown/vault viewer for toMarkdownMCP"))
         .copyright(Some("© 2026 Carlo Magno Global"))
-        .license(Some("MIT"))
+        .license(Some(include_str!("../LICENSE")))
         .website(Some("https://github.com/carlomagnoglobal/toMarkdown-viewer"))
         .website_label(Some("GitHub Repository"))
         .build();
